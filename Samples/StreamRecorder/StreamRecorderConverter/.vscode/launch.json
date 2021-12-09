@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            //"args": ["--recording_path", "/home/lc/datasets/d1", "--cam_space"],
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d6", "--cam_space"], //for save_pcloudsExtracted
+            //"args": ["--recording_path", "/home/lc/datasets/d7", "--cam_space"], //for save_pcloudsExtracted
+            
+            //"args": ["--recording_path", "/home/lc/datasets/d3"], //is:  python3 convert_images.py --recording_path /home/lc/datasets/d3
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8/PV"], 
+            // python3 convert_images.py --recording_path /run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8
+
+            // python3 save_pcloudsPCD_AHaTcam.py --recording_path /run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8/ --cam_space 
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8"],  //ok conversion
+            "args": ["--recording_path", "/home/lc/datasets/d9_getHoloFocus/", "--cam_space"],  
+            
+
+            //EXTRACTION  PNG and PCD files     from  server
+            //1) Decompress camera image and depth image from  directories /PV and /Depth AHAT
+            //2) cd Dev/HoloLens2ForCV/Samples/StreamRecorder/StreamRecorderConverter
+            // python3 convert_images.py --recording_path /run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8
+            // python3 save_pcloudsPCD_AHaTcam.py --recording_path /run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8/ --cam_space 
+            //3) Remove zip files
+            
+            "console": "integratedTerminal"
+        }
+    ]
+}

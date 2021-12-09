@@ -41,19 +41,8 @@ def process_all(w_path, project_hand_eye=False):
 
 
 if __name__ == '__main__':
-    
-    parser = argparse.ArgumentParser(description='Process recorded data.')
-    parser.add_argument("--recording_path", required=True,
-                        help="Path to recording folder")
-    parser.add_argument("--project_hand_eye",
-                        required=False,
-                        action='store_true',
-                        help="Project hand joints (and eye gaze, if recorded) to rgb images")
 
-    args = parser.parse_args()
+    #w_path = Path(args.recording_path)
+    w_path = Path("/home/lc/datasets/d1")
 
-    w_path = Path(args.recording_path)
-    
-
-    process_all(w_path, args.project_hand_eye)
-    #process_all("/home/lc/datasets/d1", False)
+    process_all(w_path, False)
