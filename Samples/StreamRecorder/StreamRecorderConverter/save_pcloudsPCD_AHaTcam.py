@@ -17,6 +17,9 @@ import open3d as o3d
 from project_hand_eye_to_pv import load_pv_data, match_timestamp
 from utils import extract_tar_file, load_lut, DEPTH_SCALING_FACTOR, project_on_depth, project_on_pv
 
+import csv
+f = open('lut_conversionPoints20To3d.csv', 'w')
+writer = csv.writer(f)
 
 def save_output_txt_files(folder, shared_dict):
     """Save output txt files saved inside shared_dict
@@ -100,6 +103,10 @@ def save_single_pcloud(shared_dict,
         # Clamp depth values
         img[img < clamp_min] = 0
         img[img > clamp_max] = 0
+
+    #print("lut:")
+    writer.writerows(lut)   # <-------- ENABLE TO WRITE LUTF.CSV for each iteration
+
 
     # Get xyz points in camera space
     points = get_points_in_cam_space(img, lut)
@@ -212,7 +219,7 @@ def get_points_in_cam_space(img, lut):
     img = np.tile(img.flatten().reshape((-1, 1)), (1, 3))
     points = img * lut
     remove_ids = np.where(np.sum(points, axis=1) < 1e-6)[0]
-    points = np.delete(points, remove_ids, axis=0)
+    points = np.delete(points, remove_ids, axis=0) #tmp with filter
     points /= 1000.
     return points
 
@@ -384,6 +391,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     #for sensor_name in ["Depth Long Throw", "Depth AHaT"]:
+    #for sensor_name in ["Depth Long Throw"]:
     for sensor_name in ["Depth AHaT"]:
         #if (Path(args.recording_path) / f"{sensor_name}.tar").exists():
         if (True): #already decommpress
@@ -395,3 +403,5 @@ if __name__ == '__main__':
                          args.clamp_max,
                          args.depth_path_suffix,
                          args.disable_project_pinhole)
+    
+    f.close()

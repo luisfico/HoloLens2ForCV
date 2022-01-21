@@ -19,7 +19,14 @@
 
             // python3 save_pcloudsPCD_AHaTcam.py --recording_path /run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8/ --cam_space 
             //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8"],  //ok conversion
-            "args": ["--recording_path", "/home/lc/datasets/d9_getHoloFocus/", "--cam_space"],  
+            //"args": ["--recording_path", "/home/lc/datasets/d9_getHoloFocus/", "--cam_space"],  
+            "args": ["--recording_path", "/home/lc/datasets/d20/", "--cam_space"],  
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d7", "--cam_space"],  //ok conversion
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d18_mire", "--cam_space"],  //ok conversion
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=10.0.1.5,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d4_calibExt", "--cam_space"],  //vpn
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=10.0.1.5,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d16_mire", "--cam_space"],  //vpn
+
+            //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d10_mire", "--cam_space"],  //ok conversion
             
 
             //EXTRACTION  PNG and PCD files     from  server
