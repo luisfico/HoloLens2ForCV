@@ -18,8 +18,8 @@ from project_hand_eye_to_pv import load_pv_data, match_timestamp
 from utils import extract_tar_file, load_lut, DEPTH_SCALING_FACTOR, project_on_depth, project_on_pv
 
 import csv
-f = open('lut_conversionPoints20To3d.csv', 'w')
-writer = csv.writer(f)
+onceGen=True
+
 
 def save_output_txt_files(folder, shared_dict):
     """Save output txt files saved inside shared_dict
@@ -104,8 +104,16 @@ def save_single_pcloud(shared_dict,
         img[img < clamp_min] = 0
         img[img > clamp_max] = 0
 
-    #print("lut:")
-    writer.writerows(lut)   # <-------- ENABLE TO WRITE LUTF.CSV for each iteration
+    global onceGen
+    if onceGen==True : # <-------- ENABLE TO WRITE LUTF.CSV 
+        output_path_lut = str(path)[:-33] + 'lut_conversionPoints2dTo3d.csv'  #in the root dataset directory
+        file_lut = open(output_path_lut, 'w')
+        writer = csv.writer(file_lut)
+        print("lut_conversionPoints2dTo3d.csv generated! ")
+        writer.writerow(['lutX', 'lutY', 'lutZ'])
+        writer.writerows(lut)   
+        file_lut.close()
+        onceGen=False
 
 
     # Get xyz points in camera space
@@ -404,4 +412,4 @@ if __name__ == '__main__':
                          args.depth_path_suffix,
                          args.disable_project_pinhole)
     
-    f.close()
+    #f.close()
