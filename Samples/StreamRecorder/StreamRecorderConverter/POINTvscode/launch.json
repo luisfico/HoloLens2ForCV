@@ -24,7 +24,8 @@
             //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d8"],  //ok conversion
             //"args": ["--recording_path", "/home/lc/datasets/d9_getHoloFocus/", "--cam_space"],  
             //"args": ["--recording_path", "/home/lc/datasets/d20/", "--cam_space"],  
-            "args": ["--recording_path", "/media/lc/Data/tmp/hololens/d3_mire_markers/", "--cam_space"],  
+            //"args": ["--recording_path", "/media/lc/Data/tmp/hololens/d25_mire_markers_parallel30cm/", "--cam_space"],  
+            "args": ["--recording_path", "/media/lc/Data/tmp/hololens/d28_mire_markers/", "--cam_space"],  
             
             //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d7", "--cam_space"],  //ok conversion
             //"args": ["--recording_path", "/run/user/1000/gvfs/smb-share:server=naboo,share=dev%20log/TEMP/PoseMonocularDepth/hololens/d18_mire", "--cam_space"],  //ok conversion

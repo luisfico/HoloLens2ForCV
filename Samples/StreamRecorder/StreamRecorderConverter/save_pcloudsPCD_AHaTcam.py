@@ -109,7 +109,7 @@ def save_single_pcloud(shared_dict,
         output_path_lut = str(path)[:-33] + 'lut_conversionPoints2dTo3d.csv'  #in the root dataset directory
         file_lut = open(output_path_lut, 'w')
         writer = csv.writer(file_lut)
-        print("lut_conversionPoints2dTo3d.csv generated! ")
+        print("lutAHaT_conversionPoints2dTo3d.csv generated! ")
         writer.writerow(['lutX', 'lutY', 'lutZ'])
         writer.writerows(lut)   
         file_lut.close()
@@ -207,7 +207,7 @@ def save_ply(output_path, points, rgb=None, cam2world_transform=None):
     pcd.points = o3d.utility.Vector3dVector(points)
     if rgb is not None:
         pcd.colors = o3d.utility.Vector3dVector(rgb)
-    pcd.estimate_normals()
+    #pcd.estimate_normals()
     if cam2world_transform is not None:
         # Camera center
         camera_center = (cam2world_transform) @ np.array([0, 0, 0, 1])
@@ -226,8 +226,8 @@ def load_extrinsics(extrinsics_path):
 def get_points_in_cam_space(img, lut):
     img = np.tile(img.flatten().reshape((-1, 1)), (1, 3))
     points = img * lut
-    remove_ids = np.where(np.sum(points, axis=1) < 1e-6)[0]
-    points = np.delete(points, remove_ids, axis=0) #tmp with filter
+    #remove_ids = np.where(np.sum(points, axis=1) < 1e-6)[0]
+    #points = np.delete(points, remove_ids, axis=0) #tmp with filter
     points /= 1000.
     return points
 
