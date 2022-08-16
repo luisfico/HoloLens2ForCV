@@ -20,7 +20,8 @@ using namespace winrt::Windows::Perception::Spatial;
 using namespace winrt::Windows::Graphics::Imaging;
 using namespace winrt::Windows::Storage;
 
-const int VideoFrameProcessor::kImageWidth = 760;
+//const int VideoFrameProcessor::kImageWidth = 760;//by default               images 760x428
+const int VideoFrameProcessor::kImageWidth = 2284; //for ShoulderPlus project images 2284x1284
 const wchar_t VideoFrameProcessor::kSensorName[3] = L"PV";
 
 winrt::Windows::Foundation::IAsyncAction VideoFrameProcessor::InitializeAsync()
@@ -35,12 +36,15 @@ winrt::Windows::Foundation::IAsyncAction VideoFrameProcessor::InitializeAsync()
     // Find MediaFrameSourceGroup
     for (const MediaFrameSourceGroup& mediaFrameSourceGroup : mediaFrameSourceGroups)
     {
-        auto knownProfiles = MediaCapture::FindKnownVideoProfiles(mediaFrameSourceGroup.Id(), KnownVideoProfile::VideoConferencing);
+        //auto knownProfiles = MediaCapture::FindKnownVideoProfiles(mediaFrameSourceGroup.Id(), KnownVideoProfile::VideoConferencing);
+        auto knownProfiles = MediaCapture::FindKnownVideoProfiles(mediaFrameSourceGroup.Id(), KnownVideoProfile::BalancedVideoAndPhoto);
         for (const auto& knownProfile : knownProfiles)
         {
             for (auto knownDesc : knownProfile.SupportedRecordMediaDescription())
             {
-                if ((knownDesc.Width() == kImageWidth)) // && (std::round(knownDesc.FrameRate()) == 15))
+                //if ((knownDesc.Width() == kImageWidth)) // && (std::round(knownDesc.FrameRate()) == 15))
+                //if ((knownDesc.Width() == 760)) // && (std::round(knownDesc.FrameRate()) == 15))
+                if ((knownDesc.Width() == 2284) && (knownDesc.Height() == 1284) && (std::round(knownDesc.FrameRate()) == 30))
                 {
                     profile = knownProfile;
                     desc = knownDesc;
@@ -99,6 +103,26 @@ winrt::Windows::Foundation::IAsyncAction VideoFrameProcessor::InitializeAsync()
     co_await selectedSource.SetFormatAsync(preferredFormat);
     auto mediaFrameReader = co_await mediaCapture.CreateFrameReaderAsync(selectedSource);
     auto status = co_await mediaFrameReader.StartAsync();
+
+
+    //Set focal length of camera VP  --------ini
+    winrt::Windows::Media::Devices::FocusControl focus_control = mediaCapture.VideoDeviceController().FocusControl();
+    winrt::Windows::Media::Devices::FocusSettings focus_settings; 
+    focus_settings.Mode(winrt::Windows::Media::Devices::FocusMode::Manual);
+    focus_settings.Value(this->m_focusValue); // set focal distance in mm  example  42               500  associated to fx 590.798, fy 590.336          500   2690.31,2688.29  ok          600  2685.31,2683.19
+    //objective good image:  cx 		cy    1043.39, 586.483,   w 2284, h 1284        fx		fy        2690.31, 2688.29,
+    focus_control.Configure(focus_settings);
+    co_await focus_control.FocusAsync();
+    //Set focal length of camera VP  --------end
+    
+
+/*
+    //Get focal length of camera VP  --------ini      ok
+    auto focus_control = mediaCapture.VideoDeviceController().FocusControl();
+    uint32_t focusValue = focus_control.Value(); // get focal distance in mm     //winrt::Windows::Media::Devices::FocusSettings::Value();
+    //auto   focusValue = focus_control.Value(); // get focal distance in mm     //winrt::Windows::Media::Devices::FocusSettings::Value();
+    //Get focal length of camera VP  --------end
+*/
 
     winrt::check_bool(status == MediaFrameReaderStartStatus::Success);
 

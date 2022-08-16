@@ -53,6 +53,8 @@ public:
     void StopRecording();
     winrt::Windows::Foundation::IAsyncAction InitializeAsync();
 
+    uint32_t m_focusValue = 420; //best focus
+
 protected:
     void OnFrameArrived(const winrt::Windows::Media::Capture::Frames::MediaFrameReader& sender,        
                         const winrt::Windows::Media::Capture::Frames::MediaFrameArrivedEventArgs& args);

@@ -34,13 +34,19 @@ enum class ButtonID
 	DEPTH_LONG_THROW
 }*/
 // Note that concurrent access to AHAT and Long Throw is currently not supported
-std::vector<ResearchModeSensorType> AppMain::kEnabledRMStreamTypes = { ResearchModeSensorType::DEPTH_LONG_THROW };
+std::vector<ResearchModeSensorType> AppMain::kEnabledRMStreamTypes = { 
+	ResearchModeSensorType::LEFT_FRONT,
+	ResearchModeSensorType::LEFT_LEFT,
+	ResearchModeSensorType::RIGHT_FRONT,
+	ResearchModeSensorType::RIGHT_RIGHT,
+	ResearchModeSensorType::DEPTH_AHAT,
+	ResearchModeSensorType::DEPTH_LONG_THROW };
 /* Supported not-ResearchMode streams:
 {
 	PV,  // RGB
 	EYE  // Eye gaze tracking
 }*/
-std::vector<StreamTypes> AppMain::kEnabledStreamTypes = { StreamTypes::PV };
+std::vector<StreamTypes> AppMain::kEnabledStreamTypes = { StreamTypes::PV, StreamTypes::EYE };
 
 AppMain::AppMain() :
 	m_recording(false),
@@ -214,7 +220,19 @@ void AppMain::Update()
 	{
 		debugTextString += "None";
 	}
-	
+
+	/*
+	//Set focal length of camera VP  --------ini
+	auto focus_control = mediaCapture.VideoDeviceController().FocusControl();
+	winrt::Windows::Media::Devices::FocusSettings focus_settings;
+	focus_settings.Mode(winrt::Windows::Media::Devices::FocusMode::Manual);
+	float m_focusValue = focus_settings.Value(); // set focal distance in mm  example  42
+	//Set focal length of camera VP  --------end
+	*/
+	float m_focusValue = 0; 
+	debugTextString += "\nFocusValue: ";
+	debugTextString += to_string(m_videoFrameProcessor->m_focusValue);
+	//debugTextString += "focus value: " + to_string(m_focusValue) + "\n"; 
 	m_debugText.SetText(debugTextString);
 
 	const XMVECTOR textPosition = headPosition + headForward * 2.0f + headUp * 0.25f + headRight * 0.3f;
